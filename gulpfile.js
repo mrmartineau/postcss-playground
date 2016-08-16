@@ -35,7 +35,7 @@ gulp.task('css', function () {
 		.pipe(
 			postcss([
 				autoprefixer({ browsers: ['> 5%', 'last 2 versions'] }),
-				//cssnano(),
+				cssnano(),
 				reporter({
 					clearMessages: true,
 					throwError: true,
