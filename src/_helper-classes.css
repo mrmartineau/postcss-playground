@@ -3,8 +3,6 @@
  * Non-semantic helper classes
  */
 
-// scss-lint:disable ImportantRule
-
 /**
  * Clearfix
  * http://www.cssmojo.com/latest_new_clearfix_so_far/
@@ -17,7 +15,7 @@
 }
 
 
-// For background image replacement
+/* For background image replacement */
 .ir {
 	background-color: transparent;
 	background-repeat: no-repeat;
@@ -34,7 +32,7 @@
 }
 
 
-// Hide from both screenreaders and browsers: h5bp.com/u
+/* Hide from both screenreaders and browsers: h5bp.com/u */
 .is-hidden {
 	display: none !important;
 	visibility: hidden !important;
@@ -42,7 +40,7 @@
 
 .is-shown { display: block; }
 
-// Hide only visually, but have it available for screenreaders: h5bp.com/v
+/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
 .is-visuallyHidden {
 	border: 0;
 	clip: rect(0 0 0 0);
@@ -53,7 +51,7 @@
 	position: absolute;
 	width: 1px;
 
-	// Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: h5bp.com/p
+	/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: h5bp.com/p */
 	&.focusable:active,
 	&.focusable:focus {
 		clip: auto;
@@ -65,7 +63,7 @@
 	}
 }
 
-// Hide visually and from screenreaders, but maintain layout
+/* Hide visually and from screenreaders, but maintain layout */
 .is-invisible { visibility: hidden; }
 
 .l-floatLeft {
@@ -101,8 +99,11 @@ textarea[contenteditable] {
 	*/
 	backface-visibility: hidden;
 }
-// Faster taps on mobile devices
-// See https://adactio.com/journal/10019 for more info
+
+/**
+ * Faster taps on mobile devices
+ * See https://adactio.com/journal/10019 for more info
+ */
 a,
 button,
 input,

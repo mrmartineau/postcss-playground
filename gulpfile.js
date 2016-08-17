@@ -9,10 +9,12 @@ var reporter = require('postcss-reporter');
 var scss = require('postcss-scss');
 var autoprefixer = require('autoprefixer');
 var cssnano = require('cssnano');
+var precss = require('precss');
 
 
 gulp.task('css', function () {
-	return gulp.src(['./src/*.scss'])
+	return gulp.src(['./src/kickoff.css'])
+		.pipe(sourcemaps.init())
 		.pipe(
 			stylelint({
 				reporters: [
@@ -23,25 +25,17 @@ gulp.task('css', function () {
 				]
 			})
 		)
-
-		.pipe(sourcemaps.init())
-
-		// Sass Compilation
-		.pipe(
-			sass().on('error', sass.logError)
-		)
-
-		// PostCSS tasks after Sass compilation
 		.pipe(
 			postcss([
+				precss(),
 				autoprefixer({ browsers: ['> 5%', 'last 2 versions'] }),
-				cssnano(),
+				//cssnano(),
 				reporter({
 					clearMessages: true,
 					throwError: true,
 				})
-		]) )
-
+			])
+		)
 		.pipe( sourcemaps.write() )
 		.pipe( gulp.dest('./dist') );
 });
