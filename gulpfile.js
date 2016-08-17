@@ -9,6 +9,7 @@ var reporter = require('postcss-reporter');
 var scss = require('postcss-scss');
 var autoprefixer = require('autoprefixer');
 var cssnano = require('cssnano');
+var postcssBemLinter = require('postcss-bem-linter');
 
 
 gulp.task('css', function () {
@@ -23,7 +24,16 @@ gulp.task('css', function () {
 				]
 			})
 		)
+		// .pipe(
+		// 	postcss([
 
+	 //      reporter({
+		// 			clearMessages: true,
+		// 			throwError: true,
+		// 		})
+		// 	],
+  //     { syntax: scss })
+		// )
 		.pipe(sourcemaps.init())
 
 		// Sass Compilation
@@ -34,6 +44,9 @@ gulp.task('css', function () {
 		// PostCSS tasks after Sass compilation
 		.pipe(
 			postcss([
+			  postcssBemLinter({
+					preset: 'suit'
+				}),
 				autoprefixer({ browsers: ['> 5%', 'last 2 versions'] }),
 				cssnano(),
 				reporter({
