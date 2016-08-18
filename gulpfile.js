@@ -10,7 +10,11 @@ var scss = require('postcss-scss');
 var autoprefixer = require('autoprefixer');
 var cssnano = require('cssnano');
 var postcssBemLinter = require('postcss-bem-linter');
+var doiuse = require('doiuse');
+var flexbugsFixes = require('postcss-flexbugs-fixes');
 
+
+var browsers = ['> 5%', 'last 2 versions', 'ie > 8'];
 
 gulp.task('css', function () {
 	return gulp.src(['./src/*.scss'])
@@ -24,37 +28,48 @@ gulp.task('css', function () {
 				]
 			})
 		)
-		// .pipe(
-		// 	postcss([
+		.pipe(
+			postcss([
+				doiuse({
+					browsers: browsers,
+					ignoreFiles: [
+						'**/_reset.scss',
+						'node_modules/**'
+					]
+				}),
+				reporter({
+					clearMessages: true,
+				})
+			],
+			{
+				syntax: scss
+			})
+		)
 
-	 //      reporter({
-		// 			clearMessages: true,
-		// 			throwError: true,
-		// 		})
-		// 	],
-  //     { syntax: scss })
-		// )
 		.pipe(sourcemaps.init())
 
 		// Sass Compilation
 		.pipe(
-			sass().on('error', sass.logError)
+			sass({
+				importer: require('npm-sass').importer
+			}).on('error', sass.logError)
 		)
 
 		// PostCSS tasks after Sass compilation
 		.pipe(
 			postcss([
-			  postcssBemLinter({
+				postcssBemLinter({
 					preset: 'suit'
 				}),
-				autoprefixer({ browsers: ['> 5%', 'last 2 versions'] }),
+				flexbugsFixes(),
+				autoprefixer({ browsers: browsers }),
 				cssnano(),
 				reporter({
 					clearMessages: true,
 					throwError: true,
 				})
-		]) )
-
+			])
+		)
 		.pipe( sourcemaps.write() )
 		.pipe( gulp.dest('./dist') );
 });
